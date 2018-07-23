@@ -14,6 +14,11 @@ from user import auth
 def index():
     return render_template('index.html')
 
+@app.route("/adddata", methods=['POST'])
+@login_required
+def adddata():
+    pass
+
 def main():
     app.register_blueprint(auth, url_prefix='/auth')
     app.run(debug=True, host='localhost')

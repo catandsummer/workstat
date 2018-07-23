@@ -6,6 +6,12 @@
   <meta charset=utf-8>
   <title>主页</title></head>
 <body>
-<span><h1>Hello!</h1><form action={{ url_for("auth.logout") }} method="post"><input type="submit" value="退出登录"></form></span>
+<span><h1>每周统计</h1><form action={{ url_for("auth.logout") }} method="post"><input type="submit" value="退出登录"></form></span>
+<form id="formdata" action={{ url_for("summitdata") }} method="post">
+    {{ content }}
+    <input type="submit" value="提交">
+</form>
+
+<form action={{ url_for("adddata") }} method="post"><input type="submit" value="增加一行"></form>
 </body>
 </html>
