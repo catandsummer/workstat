@@ -1,23 +1,11 @@
 <meta charset="utf-8"/>
-{#<script src="https://unpkg.com/vue"></script>#}
-<!--<script src="{{ url_for('static', filename='js/require.js') }}"></script>-->
-<!-- 引入样式 -->
-<link rel="stylesheet" type="text/css" href="http://unpkg.com/iview/dist/styles/iview.css">
-
-<script type="text/javascript" src="http://unpkg.com/iview/dist/iview.min.js"></script>
-
 
 
 <html>
 <head>
   <meta charset=utf-8>
-  <title>Web_todoList</title></head>
+  <title>主页</title></head>
 <body>
-<div id=app></div>
-
-{##}
-{#<script type=text/javascript src=http://localhost:8080/manifest.js></script>#}
-{#<script type=text/javascript src=http://localhost:8080/vendor.js></script>#}
-<script type=text/javascript src=http://localhost:8080/app.js></script>
+<span><h1>Hello!</h1><form action={{ url_for("auth.logout") }} method="post"><input type="submit" value="退出登录"></form></span>
 </body>
 </html>

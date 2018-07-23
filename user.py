@@ -2,9 +2,7 @@
 from flask import jsonify, render_template, Blueprint,request,abort,redirect, url_for, session
 from flask_login import (LoginManager, login_required, login_user, logout_user, UserMixin,current_user)
 from flask_base import app
-from task_db import User_db, db
 import hashlib
-import conf
 
 _userdb = dict()
 
@@ -17,7 +15,6 @@ class User(UserMixin):
 
     def get_id(self):
         return self.name
-
 
 
 # flask-login
@@ -45,19 +42,18 @@ def login_show():
 
 @auth.route('/login', methods=['POST'])
 def login():
-    if not request.json or not 'password' in request.json or not 'username' in request.json:
+    data = request.form.to_dict()
+    if not data or not 'password' in data or not 'username' in data:
         abort(400)
-    username = request.json['username']
-    password = request.json['password']
+    username = data['username']
+    password = data['password']
     if username == '' or password == '':
         return jsonify({'result': '用户名不存在'}), 403
 
     user = _userdb.get(username)
     m = hashlib.md5()
-    m.update(password)
+    m.update(password.encode())
     hashpass = m.hexdigest()[0:16]
-    print 'hashpass=', hashpass
-    print user
     if user == None:
         # 目前自动注册，以后删除
         # TODO
@@ -66,12 +62,11 @@ def login():
     else:
         if hashpass[0:16] != user.passkey[0:16]:
             logout_user()
-            print "密码错误"
             return jsonify({'result': '密码错误'}), 403
 
     login_user(user)
     next = request.args.get('next')
-    return redirect(next or '/')
+    return 'ok', 200
 
 @app.route('/getname', methods=['GET'])
 def getname():

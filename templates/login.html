@@ -1,21 +1,18 @@
 <meta charset="utf-8"/>
-{#<script src="{{ url_for('static', filename='vue.js') }}"></script>#}
-<!--<script src="{{ url_for('static', filename='js/require.js') }}"></script>-->
-<!-- 引入样式 -->
-<link rel="stylesheet" type="text/css" href="http://unpkg.com/iview/dist/styles/iview.css">
-
-<script type="text/javascript" src="http://unpkg.com/iview/dist/iview.min.js"></script>
-
-
+<script src="{{ url_for('static', filename='js/jquery-3.3.1.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/index.js') }}"></script>
 
 <html>
 <head>
   <meta charset=utf-8>
-  <title>Web_todoList</title></head>
+  <title>登录页面</title></head>
 <body>
-<div id=Login></div>
-{#<script type=text/javascript src=http://localhost:8080/manifest.js></script>#}
-{#<script type=text/javascript src=http://localhost:8080/vendor.js></script>#}
-<script type=text/javascript src=http://localhost:8080/app.js></script>
+<form id="form1">
+     账号：<input name="username"><br>
+    密码：<input name="password"><br>
+    <input type='button' value='登录' onClick='login()'>
+
+</form>
+{#<script type=text/javascript src=http://localhost:8080/app.js></script>#}
 </body>
 </html>
