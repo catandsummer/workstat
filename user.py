@@ -77,4 +77,4 @@ def getname():
 @login_required
 def logout():
     logout_user()
-    return jsonify({'result': 0}), 201
+    return redirect("/")
