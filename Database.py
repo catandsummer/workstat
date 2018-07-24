@@ -1,14 +1,15 @@
 # -*- coding: utf-8 -*-
 import pymongo
-try:
-    from urllib.parse import quote
-except:
-    from urllib import quote
+
+from urllib.parse import quote
+
+from cfg import *
 
 
 def get_mongo_db(dbname):
-    url = "mongodb://%s:%s@%s:%s" % (quote("admin"), quote("admin"), "192.168.1.105", "27017")
+    url = "mongodb://%s:%s@%s:%s" % (quote(DB_USERNAME), quote(DB_PASS), DB_IP, DB_PORT)
     return pymongo.MongoClient(url)[dbname]
+
 
 def _getcollect():
     db = get_mongo_db('workstat_test')
@@ -34,9 +35,11 @@ def save_data(username, data):
     col = _getcollect()
     col.insert({"name": username, "data": data})
 
+
 def get_data(username):
     col = _getcollect()
-    return list(col.find(name=username))
+    return list(d["data"] for d in col.find(name=username))
+
 
 if __name__ == '__main__':
     db = get_mongo_db('aluba_stat')

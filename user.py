@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 from flask import jsonify, render_template, Blueprint,request,abort,redirect, url_for, session
 from flask_login import (LoginManager, login_required, login_user, logout_user, UserMixin,current_user)
-from flask_base import app
+from app import app
 import hashlib
 from Database import signin
 

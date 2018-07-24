@@ -1,5 +1,6 @@
 <meta charset="utf-8"/>
-
+<script src="{{ url_for('static', filename='js/jquery-3.3.1.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
 
 <html>
 <head>
@@ -7,12 +8,16 @@
   <title>主页</title></head>
 <body>
 <span><h1>每周统计</h1><form action={{ url_for("auth.logout") }} method="post"><input type="submit" value="退出登录"></form></span>
-<ol>
- {{ content }}
-</ol>
-<form id="formdata" action={{ url_for("summitdata") }} method="post">
+<table border="1" id="tabledata">
+        <thead>
+            <th>ID</th>
+            <th>内容</th>
+            <th>操作</th>
+        </thead>
+    </table>
+<form id="formdata">
     输入工作内容：<input name="content">
-    <input type="submit" value="提交">
+    <input type='button' value='提交' onClick='submitdata()'>
 </form>
 
 </body>
