@@ -3,6 +3,7 @@ from flask import jsonify, render_template, Blueprint,request,abort,redirect, ur
 from flask_login import (LoginManager, login_required, login_user, logout_user, UserMixin,current_user)
 from flask_base import app
 import hashlib
+from Database import signin
 
 _userdb = dict()
 
@@ -50,23 +51,19 @@ def login():
     if username == '' or password == '':
         return jsonify({'result': '用户名不存在'}), 403
 
-    user = _userdb.get(username)
     m = hashlib.md5()
     m.update(password.encode())
     hashpass = m.hexdigest()[0:16]
-    if user == None:
-        # 目前自动注册，以后删除
-        # TODO
+
+    if not signin(username, hashpass):
+        logout_user()
+        return jsonify({'result': '密码错误'}), 403
+    else:
         user = User(username, hashpass)
         _userdb[username] = user
-    else:
-        if hashpass[0:16] != user.passkey[0:16]:
-            logout_user()
-            return jsonify({'result': '密码错误'}), 403
+        login_user(user)
+        return 'ok', 200
 
-    login_user(user)
-    next = request.args.get('next')
-    return 'ok', 200
 
 @app.route('/getname', methods=['GET'])
 def getname():
