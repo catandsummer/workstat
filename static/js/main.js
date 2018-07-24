@@ -41,9 +41,10 @@ function refresh() {
                 var content = row.insertCell(1);
                  var op = row.insertCell(2);
 
-                id.innerHTML = i + 1;
-                content.innerHTML = result["data"][i];
-                op.innerHTML = "<button onclick='delmessage(i)'>删除</button>";
+                id.innerHTML = (parseInt(i) + 1).toString();
+                content.innerHTML = result["data"][i]["data"];
+
+                op.innerHTML = "<button onclick='delmessage(" + '"' + result["data"][i]["id"] + '"' + ")'>删除</button>";
 
             }
 

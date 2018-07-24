@@ -3,7 +3,7 @@ from flask import jsonify, render_template, request, session, redirect
 from flask_login import login_required
 
 from user import auth
-from Database import save_data, get_data
+from Database import save_data, get_data, del_data
 from app import app
 
 
@@ -16,17 +16,20 @@ def index():
 @app.route("/datainterface", methods=['POST', "GET", "DEL"])
 @login_required
 def datainterface():
+	username = session.get('user_id')
+	data = request.form.to_dict()
 	if request.method == "POST":
-		data = request.form.to_dict()
+
 		content = data['content']
-		username = session.get('user_id')
+
 		save_data(username, content)
 		return redirect("/")
 	elif request.method == "GET":
-		username = session.get('user_id')
 		return jsonify({"data": get_data(username)})
 	elif request.method == "DEL":
-		return ""
+		_id = data['index']
+		del_data(_id)
+		return "ok"
 
 
 def main():
